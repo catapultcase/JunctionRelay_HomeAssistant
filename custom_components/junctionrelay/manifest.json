@@ -2,8 +2,10 @@
   "domain": "junctionrelay",
   "name": "JunctionRelay",
   "version": "1.0.0",
-  "documentation": "https://github.com/catapultcase/JunctionRelay_HomeAssistant",
+  "documentation": "https://github.com/yourusername/junctionrelay",
+  "dependencies": [],
+  "codeowners": ["@yourgithubhandle"],
   "requirements": [],
-  "codeowners": ["@catapultcase"],
+  "config_flow": true,
   "iot_class": "local_polling"
 }

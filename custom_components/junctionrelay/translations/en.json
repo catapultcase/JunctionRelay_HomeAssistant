@@ -1,0 +1,16 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to JunctionRelay",
+        "description": "Enter the URL of your JunctionRelay backend",
+        "data": {
+          "host": "JunctionRelay Host URL"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect"
+    }
+  }
+}

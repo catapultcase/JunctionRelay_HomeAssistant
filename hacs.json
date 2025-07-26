@@ -1,0 +1,8 @@
+{
+  "name": "JunctionRelay",
+  "content_in_root": false,
+  "domain": "junctionrelay",
+  "country": "US",
+  "codeowners": ["@catapultcase"],
+  "homeassistant": "2023.0.0"
+}

@@ -25,7 +25,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     try:
         async with async_timeout.timeout(10):
             async with aiohttp.ClientSession() as session:
-                async with session.get(f"{host}/api/junctions/summary") as resp:
+                async with session.get(f"{host}/api/homeassistant/junctions/summary") as resp:
                     if resp.status == 200:
                         data = await resp.json()
                         _LOGGER.info(f"Received junction data for switches: {data}")
@@ -136,7 +136,7 @@ class JunctionRelaySwitch(SwitchEntity):
         try:
             async with async_timeout.timeout(10):
                 async with aiohttp.ClientSession() as session:
-                    async with session.post(f"{self._host}/api/connections/start/{self._id}") as resp:
+                    async with session.post(f"{self._host}/api/homeassistant/connections/start/{self._id}") as resp:
                         if resp.status == 200:
                             self._is_on = True
                             self._available = True
@@ -159,7 +159,7 @@ class JunctionRelaySwitch(SwitchEntity):
         try:
             async with async_timeout.timeout(10):
                 async with aiohttp.ClientSession() as session:
-                    async with session.post(f"{self._host}/api/connections/stop/{self._id}") as resp:
+                    async with session.post(f"{self._host}/api/homeassistant/connections/stop/{self._id}") as resp:
                         if resp.status == 200:
                             self._is_on = False
                             self._available = True
@@ -182,7 +182,7 @@ class JunctionRelaySwitch(SwitchEntity):
         try:
             async with async_timeout.timeout(10):
                 async with aiohttp.ClientSession() as session:
-                    async with session.get(f"{self._host}/api/junctions/{self._id}") as resp:
+                    async with session.get(f"{self._host}/api/homeassistant/junctions/{self._id}") as resp:
                         if resp.status == 200:
                             data = await resp.json()
                             status = data.get("status", "Unknown")

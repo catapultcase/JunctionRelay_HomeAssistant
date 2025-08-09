@@ -25,11 +25,21 @@ async def validate_input(hass: core.HomeAssistant, data):
     try:
         async with async_timeout.timeout(10):
             async with aiohttp.ClientSession() as session:
-                async with session.get(f"{host}/api/junctions/summary") as resp:
+                # Test connection using the homeassistant status endpoint
+                async with session.get(f"{host}/api/homeassistant/status") as resp:
+                    if resp.status == 200:
+                        status_data = await resp.json()
+                        _LOGGER.info(f"HomeAssistant service status: {status_data}")
+                    else:
+                        _LOGGER.warning(f"HomeAssistant service returned {resp.status}, trying junctions endpoint")
+                
+                # Also test the main junctions endpoint as fallback
+                async with session.get(f"{host}/api/homeassistant/junctions/summary") as resp:
                     if resp.status != 200:
                         raise CannotConnect
                     await resp.json()
-    except Exception:
+    except Exception as e:
+        _LOGGER.error(f"Connection validation failed: {e}")
         raise CannotConnect
 
     return {"title": "JunctionRelay", "host": host}
